@@ -22,6 +22,7 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_EVENT_ORGANIZER', 'ROLE_COMMON_USER')")
     public Page<Event> getAllEvents(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size,
                                     @RequestParam(defaultValue = "id") String sortBy) {
@@ -29,6 +30,7 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}")
+    @PreAuthorize("hasAnyAuthority('ROLE_EVENT_ORGANIZER', 'ROLE_COMMON_USER')")
     public Event findEventsById(@PathVariable UUID eventId) {
         return eventService.findById(eventId);
     }
