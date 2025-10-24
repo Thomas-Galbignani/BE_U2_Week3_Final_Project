@@ -23,17 +23,17 @@ public class Event {
     private String title;
     private String description;
     private LocalDate date;
-    private String place;
+    private String location;
     private int placesAvailable;
     @OneToMany(mappedBy = "event")
     @JsonIgnore
     private List<Reservation> reservations;
 
-    public Event(String title, String description, LocalDate date, String place, int placesAvailable) {
+    public Event(String title, String description, LocalDate date, String location, int placesAvailable) {
         this.title = title;
         this.description = description;
         this.date = date;
-        this.place = place;
+        this.location = location;
         this.placesAvailable = placesAvailable;
     }
 }
