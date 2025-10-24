@@ -34,18 +34,18 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @JsonIgnore
     private Role role;
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Reservation> reservations;
 
 
-    public User(String username, String name, String surname, String email, String password) {
+    public User(String username, String name, String surname, String email, String password, Role role) {
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.role = Role.COMMON_USER;
+        this.role = role;
     }
 
     @JsonIgnore
@@ -76,5 +76,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Collection<? extends GrantedAuthority> getRoleAsAuthority() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name())); // Cercato su internet - convertire enum in GrantedAuthority
     }
 }

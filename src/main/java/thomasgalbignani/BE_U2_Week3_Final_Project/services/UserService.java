@@ -41,7 +41,7 @@ public class UserService {
                 });
 
         User user = new User(newUser.username(), newUser.name(),
-                newUser.surname(), newUser.email(), bcrypt.encode(newUser.password()));
+                newUser.surname(), newUser.email(), bcrypt.encode(newUser.password()), newUser.role());
         return userRepository.save(user);
     }
 }
